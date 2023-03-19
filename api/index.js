@@ -4,6 +4,8 @@ const app = express();
 
 const {usersRoute, authRoute, commentsRoute, likesRoute, postsRoute} = require('./routes')
 
+app.use(express.json())
+
 app.use('/api/auth', authRoute)
 app.use('/api/users', usersRoute)
 app.use('/api/posts', postsRoute)
