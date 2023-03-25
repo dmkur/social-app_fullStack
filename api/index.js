@@ -1,10 +1,18 @@
 const express = require('express')
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
 const {usersRoute, authRoute, commentsRoute, likesRoute, postsRoute} = require('./routes')
 
 app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
+
+app.get('/ping', (req, res) => {
+    res.json('pong')
+})
 
 app.use('/api/auth', authRoute)
 app.use('/api/users', usersRoute)
