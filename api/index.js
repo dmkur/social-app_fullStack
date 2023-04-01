@@ -9,7 +9,6 @@ const {usersRoute, authRoute, commentsRoute, likesRoute, postsRoute} = require('
 // need to work with cookies
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Credentials", true)
-
     next()
 })
 
