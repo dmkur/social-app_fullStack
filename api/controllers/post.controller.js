@@ -1,5 +1,6 @@
 const {db} = require("../connect");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 module.exports = {
     getPosts: (req, res, next) => {
@@ -18,7 +19,27 @@ module.exports = {
                 return res.json(data)
             })
         })
+    },
+    addPost: (req, res) => {
+        const token = req.cookies.accessToken
+        if (!token) return res.status(401).json('Not logged in')
 
+        jwt.verify(token, 'secretKey', (err, userInfo) => {
+            if (err) return res.status(403).json("Token is`t valid")
 
+            const q = "INSERT INTO posts (`desc`,`img`,`createdAt`,`userId`) VALUES (?)"
+
+            const values = [
+                req.body.desc,
+                req.body.img,
+                moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+                userInfo.id,
+            ]
+
+            db.query(q, [values], (err, data) => {
+                if (err) return res.status(500).json(err);
+                return res.json("Post has been created")
+            })
+        })
     }
 }
