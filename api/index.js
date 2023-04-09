@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const app = express();
 
 const {usersRoute, authRoute, commentsRoute, likesRoute, postsRoute} = require('./routes')
+const multer = require("multer");
 
 // need to work with cookies
 app.use((req, res, next) => {
@@ -20,6 +21,21 @@ app.use(cookieParser())
 
 app.get('/ping', (req, res) => {
     res.json('pong')
+})
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../client/public/upload')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname )
+    }
+})
+const upload = multer({ storage: storage })
+
+app.use('/api/upload', upload.single("file"), (req, res) => {
+    const file = req.file
+    res.json(file.filename)
 })
 
 app.use('/api/auth', authRoute)
