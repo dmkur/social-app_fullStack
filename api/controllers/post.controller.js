@@ -12,7 +12,10 @@ module.exports = {
             if (err) return res.status(403).json('Token is`t valid')
 
             // перша кверя підтягує пости + нашого юзера, друга обирає лише пости юзерів на які ми підписані
-            const q = "SELECT p.*, u.id as userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) LEFT JOIN relationships as r ON (p.userId = r.followedUserId) WHERE r.followerUserId = ? OR p.userId=? ORDER BY createdAt DESC ";
+            const q = "SELECT p.*, u.id as userId, name, profilePic " +
+                "FROM posts AS p JOIN users AS u ON (u.id = p.userId) " +
+                "LEFT JOIN relationships as r ON (p.userId = r.followedUserId) " +
+                "WHERE r.followerUserId = ? OR p.userId=? ORDER BY createdAt DESC ";
 
             db.query(q, [userInfo.id, userInfo.id], (err, data) => {
                 if (err) return res.status(500).json(err)
