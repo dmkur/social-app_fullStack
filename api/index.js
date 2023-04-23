@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express();
 
-const {usersRoute, authRoute, commentsRoute, likesRoute, postsRoute} = require('./routes')
+const {usersRoute, authRoute, commentsRoute, likesRoute, postsRoute, relationshipsRoute} = require('./routes')
 const multer = require("multer");
 
 // need to work with cookies
@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 app.use(cors({
-    origin:'http://localhost:3000'
+    origin: 'http://localhost:3000'
 }))
 app.use(cookieParser())
 
@@ -28,10 +28,10 @@ const storage = multer.diskStorage({
         cb(null, '../client/public/upload')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname )
+        cb(null, Date.now() + file.originalname)
     }
 })
-const upload = multer({ storage: storage })
+const upload = multer({storage: storage})
 
 app.use('/api/upload', upload.single("file"), (req, res) => {
     const file = req.file
@@ -43,6 +43,7 @@ app.use('/api/users', usersRoute)
 app.use('/api/posts', postsRoute)
 app.use('/api/comments', commentsRoute)
 app.use('/api/likes', likesRoute)
+app.use('/api/relationships', relationshipsRoute)
 
 app.listen(8800, () => {
     console.log('App started on port 8800')

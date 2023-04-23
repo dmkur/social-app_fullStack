@@ -48,8 +48,8 @@ module.exports = {
         })
     },
     logout: (req, res) => {
-    //     delete cookie
-        res.clearCookie('accessToken',{
+        //     delete cookie
+        res.clearCookie('accessToken', {
             secure: true,
             // різний порт автоматично блокує кукі реакт 3300, апка 88
             // ція опція відключить блокування

@@ -3,5 +3,6 @@ module.exports = {
     commentsRoute: require('./comments.route'),
     likesRoute: require('./likes.route'),
     postsRoute: require('./posts.route'),
-    usersRoute: require('./users.route')
+    usersRoute: require('./users.route'),
+    relationshipsRoute: require('./relationships.route'),
 }
