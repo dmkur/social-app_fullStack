@@ -1,0 +1,81 @@
+@import "../../style.scss";
+
+.leftBar {
+  @include themify($themes) {
+    color: themed('textColor');
+    background-color: themed('bg');
+
+    //  задали ширу через FLEX
+    flex: 2;
+    //  ств фіксованого лівого меню
+    position: sticky;
+    //  враховуємо висоту набару яка 70
+    top: 70px;
+    //  задати висоту лівго мені і відняти висоту навбару
+    height: calc(100vh - 70px);
+    //  якщо елементи не вміщаються їх можна прокрутити
+    overflow: scroll;
+
+    @include mobile {
+      display: none;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & {
+      scrollbar-width: none;
+    }
+    .container {
+      padding: 20px;
+
+      hr {
+        margin: 20px 0;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        span {
+          font-size: 12px;
+        }
+
+        .user {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          span {
+            font-size: 14px;
+          }
+        }
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          img {
+            width: 30px;
+          }
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
