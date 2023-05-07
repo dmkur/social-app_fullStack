@@ -40,10 +40,12 @@ const NavBar = () => {
                 <NotificationsOutlinedIcon/>
                 <div className="user">
                     <img
-                        src={"/upload/"+currentUser.profilePic}
+                        src={"/upload/" + currentUser.profilePic}
                         alt=""
                     />
-                    <span>{currentUser.name}</span>
+                    <Link to={'/profile/' + currentUser.id} style={{textDecoration: "none"}}>
+                        <span>{currentUser.name}</span>
+                    </Link>
                 </div>
             </div>
         </div>

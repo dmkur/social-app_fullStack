@@ -1,5 +1,5 @@
 import "./register.scss"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ const Register = () => {
         name: '',
     });
     const [err, setErr] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setInputs(prev => ({...prev, [e.target.name]: e.target.value}))
@@ -23,6 +24,7 @@ const Register = () => {
         e.preventDefault()
         try {
             await axios.post('http://localhost:8800/api/auth/register', inputs)
+            navigate('/login')
         } catch (err) {
             setErr(err.response.data)
         }
